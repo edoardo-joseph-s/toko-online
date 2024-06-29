@@ -73,3 +73,32 @@ void login()
         }
 
 }
+
+void regis()
+{
+        string ruserId,rpassword,rid,rpass;
+
+        system("cls");
+        cout<<"Masukan Username: ";
+        cin>>ruserId;
+        cout<<"Masukan Password: ";
+        cin>>rpassword;
+
+        ofstream f1("records.txt", ios::app);
+        f1<<ruserId<<' '<<rpassword<<endl;
+        system("cls");
+        cout<<"Registrasi berhasil"<<endl;
+        main();
+}
+
+// ganti password
+void forgot();
+{
+        int option;
+        system("cls");
+        cout<<"1. Cari Id by Username"<<endl;
+        cout<<"2. Kembali ke menu"<<endl;
+        cout<<"Masukan pilihan: ";
+        cin>>option;
+        
+}
