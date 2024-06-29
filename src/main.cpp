@@ -100,5 +100,45 @@ void forgot();
         cout<<"2. Kembali ke menu"<<endl;
         cout<<"Masukan pilihan: ";
         cin>>option;
+
+        switch (option)
+        {
+        case 1:
+        {
+                int count=0;
+                string suserId,sId,spass;
+                cout<<"Masukan Username: ";
+                cin>>suserId;
+                
+                ifstream f2("records.txt");
+                while(f2>>sId>>spass)
+                {
+                        if(sId==suerId)
+                        {
+                                count=1;
+                        }
+                }
+                f2.close();
+                if(count==1)
+                {
+                        cout<<"Akun di temukan"<<endl;
+                        cout<<"Passow kamu adalah: "<<spass;
+                        main();
+                }
+                else{
+                        cout<<"Maff akun kamu tidak ditemukan"<<endl;
+                }
+                break;
+        }
+
+        case 2:
+        {
+                main();
+                }        
+        default:
+                cout<<"Pilihan salah, tolong masukan lagi"<<endl;
+                forgot();
+                break;
+        }
         
 }
