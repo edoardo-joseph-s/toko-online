@@ -5,8 +5,7 @@ using namespace std;
 
 void login();
 void regis();
-void forgot();
-
+void reset();
 
 int main() {
         int c;
@@ -17,7 +16,7 @@ int main() {
         cout<<"\t1. Sign In"<<endl;
         cout<<"\t2. Sign Up"<<endl;
         cout<<"\t3. Forgot Password"<<endl;
-        cout<<"\nMasukan Pilihan: "<<endl;
+        cout<<"\nMasukan Pilihan: ";
         cin>>c;
 
         switch (c)
@@ -29,7 +28,7 @@ int main() {
                 regis();
                 break;
         case 3:
-                forgot();
+                reset();
                 break;
         default:
                 system("cls");
@@ -76,9 +75,12 @@ void login()
 
 void regis()
 {
-        string ruserId,rpassword,rid,rpass;
+        string ruserId, rpassword, rid, rpass;
 
         system("cls");
+        cout<<"-----------------------------------------"<<endl;
+        cout<<"                 Registrasi              "<<endl;
+        cout<<"-----------------------------------------"<<endl;
         cout<<"Masukan Username: ";
         cin>>ruserId;
         cout<<"Masukan Password: ";
@@ -86,21 +88,26 @@ void regis()
 
         ofstream f1("records.txt", ios::app);
         f1<<ruserId<<' '<<rpassword<<endl;
+        
         system("cls");
         cout<<"Registrasi berhasil"<<endl;
         main();
 }
 
 // ganti password
-void forgot();
+
+void reset()
 {
         int option;
         system("cls");
+        cout<<"-----------------------------------------"<<endl;
+        cout<<"                Reset Password           "<<endl;
+        cout<<"-----------------------------------------"<<endl;
         cout<<"1. Cari Id by Username"<<endl;
         cout<<"2. Kembali ke menu"<<endl;
         cout<<"Masukan pilihan: ";
         cin>>option;
-
+        
         switch (option)
         {
         case 1:
@@ -113,7 +120,7 @@ void forgot();
                 ifstream f2("records.txt");
                 while(f2>>sId>>spass)
                 {
-                        if(sId==suerId)
+                        if(sId==suserId)
                         {
                                 count=1;
                         }
@@ -130,14 +137,13 @@ void forgot();
                 }
                 break;
         }
-
         case 2:
         {
                 main();
                 }        
         default:
                 cout<<"Pilihan salah, tolong masukan lagi"<<endl;
-                forgot();
+                reset();
                 break;
         }
         
