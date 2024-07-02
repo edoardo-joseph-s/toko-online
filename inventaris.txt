@@ -1,2 +1,1 @@
-Helm,70000,20,Dengan standar SNI
-Ayam,10000,10,Enak
+helm,10,10,re

@@ -77,7 +77,6 @@ void tambahProduk() {
     cout << "-----------------------------------------" << endl;
     cout << "Produk berhasil ditambahkan!" << endl;
     cout << "-----------------------------------------" << endl;
-
 }
 
 void bacaProduk() {
@@ -128,41 +127,59 @@ void bacaProduk() {
             });
     }
     cout << "Daftar Produk:" << endl;
-    for (const auto& produk : inventaris) {
-        cout << "Nama: " << produk.nama << ", Harga: " << produk.harga << ", Stok: " << produk.stok << ", Deskripsi: " << produk.deskripsi << endl;
+    for (size_t i = 0; i < inventaris.size(); ++i) {
+        cout << i + 1 << ". Nama        : " << inventaris[i].nama << endl;
+        cout << "   Harga       : " << inventaris[i].harga << endl;
+        cout << "   Stok        : " << inventaris[i].stok << endl;
+        cout << "   Dekripsi    : " << inventaris[i].deskripsi << endl;
+        cout << "-----------------------------------------\n" << endl;
     }
 }
 
 void perbaruiProduk() {
     string namaProduk;
-    cout << "Masukkan nama produk yang ingin diperbarui: ";
+
+    system("cls");
+    cout << "-----------------------------------------" << endl;
+    cout << "              UPDATE PRODUK           " << endl;
+    cout << "-----------------------------------------" << endl;
+            cout << "Masukkan nama produk       : ";
     cin.ignore(); // Tambahkan untuk mengabaikan enter sebelumnya
     getline(cin, namaProduk); // Menggunakan getline untuk menerima input dengan spasi
     for (auto& produk : inventaris) {
         if (produk.nama == namaProduk) {
-            cout << "Masukkan harga baru: ";
+            cout << "Masukkan harga baru        : ";
             cin >> produk.harga;
-            cout << "Masukkan stok baru: ";
+            cout << "Masukkan stok baru         : ";
             cin >> produk.stok;
-            cout << "Masukkan deskripsi baru: ";
+            cout << "Masukkan deskripsi baru    : ";
             cin.ignore(); // Tambahkan untuk mengabaikan enter sebelumnya
             getline(cin, produk.deskripsi); // Menggunakan getline untuk menerima input dengan spasi
             simpanDataKeFile(); // Simpan data ke file setelah diperbarui
+            cout << "-----------------------------------------" << endl;
             cout << "Produk berhasil diperbarui!" << endl;
             return;
         }
     }
+    cout << "-----------------------------------------" << endl;
     cout << "Produk tidak ditemukan." << endl;
 }
 
 void hapusProduk() {
     string namaProduk;
-    cout << "Masukkan nama produk yang ingin dihapus: ";
+
+    system("cls");
+    cout << "-----------------------------------------" << endl;
+    cout << "              HAPUS PRODUK           " << endl;
+    cout << "-----------------------------------------" << endl;
+    cout << "Masukkan nama produk: ";
     cin.ignore(); // Tambahkan untuk mengabaikan enter sebelumnya
     getline(cin, namaProduk); // Menggunakan getline untuk menerima input dengan spasi
     auto it = find_if(inventaris.begin(), inventaris.end(), [&](const Produk& produk) {
         return produk.nama == namaProduk;
     });
+
+    cout << "-----------------------------------------" << endl;
     if (it != inventaris.end()) {
         inventaris.erase(it);
         simpanDataKeFile(); // Simpan data ke file setelah dihapus
