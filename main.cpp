@@ -3,9 +3,9 @@
 #include <string.h>
 using namespace std;
 
-void login();
-void regis();
-void reset();
+void login(); // Fungsi untuk login
+void regis(); // Fungsi untuk registrasi
+void reset(); // Fungsi untuk reset password
 
 int main() {
         int c;
@@ -32,15 +32,17 @@ int main() {
                 break;
         default:
                 system("cls");
-                cout<<"Masukan pilihan yang benar"<<endl;
+                cout<<"Masukan ilihan yang benar..."<<endl;
                 main();
         }
 }
 
+// Fungsi untuk login
 void login()
 {
         int count;
         string userId, password, id, pass;
+
         system("cls");
         cout<<"-----------------------------------------"<<endl;
         cout<<"                   Login                 "<<endl;
@@ -67,12 +69,13 @@ void login()
                         main();
                 }
                 else{
-                        cout<<"Sign In dulu baru Login"<<endl;
+                        cout<<"Sign In dulu baru Login..."<<endl;
                 }
         }
 
 }
 
+// Fungsi untuk proses registrasi
 void regis()
 {
         string ruserId, rpassword, rid, rpass;
@@ -94,8 +97,7 @@ void regis()
         main();
 }
 
-// ganti password
-
+// Fungsi untuk reset password
 void reset()
 {
         int option;
