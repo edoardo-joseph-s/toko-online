@@ -57,26 +57,31 @@ void bacaDataDariFile() {
 
 void tambahProduk() {
     Produk produkBaru;
+    char pilihan;
     
-    system("cls");
-    cout << "-----------------------------------------" << endl;
-    cout << "              TAMBAH PRODUK              " << endl;
-    cout << "-----------------------------------------" << endl;
-    cout << "Masukkan nama produk       : ";
-    cin.ignore(); // Tambahkan untuk mengabaikan enter sebelumnya
-    getline(cin, produkBaru.nama); // Menggunakan getline untuk menerima input dengan spasi
-    cout << "Masukkan harga produk      : ";
-    cin >> produkBaru.harga;
-    cout << "Masukkan stok produk       : ";
-    cin >> produkBaru.stok;
-    cout << "Masukkan deskripsi produk  : ";
-    cin.ignore(); // Tambahkan untuk mengabaikan enter sebelumnya
-    getline(cin, produkBaru.deskripsi); // Menggunakan getline untuk menerima input dengan spasi
-    inventaris.push_back(produkBaru);
-    simpanDataKeFile(); // Simpan data ke file setelah ditambahkan
-    cout << "-----------------------------------------" << endl;
-    cout << "Produk berhasil ditambahkan!" << endl;
-    cout << "-----------------------------------------" << endl;
+    do {
+        system("cls");
+        cout << "-----------------------------------------" << endl;
+        cout << "              TAMBAH PRODUK              " << endl;
+        cout << "-----------------------------------------" << endl;
+        cout << "Masukkan nama produk       : ";
+        cin.ignore(); // Tambahkan untuk mengabaikan enter sebelumnya
+        getline(cin, produkBaru.nama); // Menggunakan getline untuk menerima input dengan spasi
+        cout << "Masukkan harga produk      : ";
+        cin >> produkBaru.harga;
+        cout << "Masukkan stok produk       : ";
+        cin >> produkBaru.stok;
+        cout << "Masukkan deskripsi produk  : ";
+        cin.ignore(); // Tambahkan untuk mengabaikan enter sebelumnya
+        getline(cin, produkBaru.deskripsi); // Menggunakan getline untuk menerima input dengan spasi
+        inventaris.push_back(produkBaru);
+        simpanDataKeFile(); // Simpan data ke file setelah ditambahkan
+        cout << "-----------------------------------------" << endl;
+        cout << "Produk berhasil ditambahkan!" << endl;
+        cout << "-----------------------------------------" << endl;
+        cout << "Apakah Anda ingin menambahkan produk lagi? (y/t): ";
+        cin >> pilihan;
+    } while (pilihan == 'y' || pilihan == 'Y');
 }
 
 void bacaProduk() {
@@ -128,11 +133,11 @@ void bacaProduk() {
     }
     cout << "Daftar Produk:" << endl;
     for (size_t i = 0; i < inventaris.size(); ++i) {
+        cout << "-----------------------------------------\n" << endl;
         cout << i + 1 << ". Nama        : " << inventaris[i].nama << endl;
         cout << "   Harga       : " << inventaris[i].harga << endl;
         cout << "   Stok        : " << inventaris[i].stok << endl;
         cout << "   Dekripsi    : " << inventaris[i].deskripsi << endl;
-        cout << "-----------------------------------------\n" << endl;
     }
 }
 
@@ -221,9 +226,7 @@ int main() {
 
     login();
 
-    do
-    {
-        system("cls");
+    system("cls");
     cout << "-----------------------------------------" << endl;
     cout << "                  M E N U                " << endl;
     cout << "-----------------------------------------" << endl;
@@ -249,14 +252,14 @@ int main() {
             hapusProduk();
             break;
         case 5:
-            cout << "Keluar dari program" << endl;
+            cout << "==============================================" << endl;
+            cout << "==============================================" << endl;
+            cout << "                   M E N U             " << endl;
+            cout << "                                               " << endl;
+            cout << "       Anda Telah Keluar Dari Aplikasi" << endl;
+            return 0; // Keluar dari program
         default:
             cout << "Pilihan tidak valid. Silakan coba lagi." << endl;
     }
-
-        // Tanya apakah ingin kembali ke dashboard
-        cout << "\nKembali ke Menu? (y/n): ";
-        cin >> chose;
-    } while (chose == 'Y' || chose == 'y');
     return 0;
 }   
