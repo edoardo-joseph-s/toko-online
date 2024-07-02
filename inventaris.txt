@@ -1,1 +1,2 @@
-helm,10,10,re
+Sapi,10,100,ads
+Ayam,10,1000,afaf

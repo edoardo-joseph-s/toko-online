@@ -94,51 +94,52 @@ void bacaProduk() {
         return;
     }
     int pilihan;
-    cout << "Pilihan tampilan produk:" << endl;
-    cout << "1. Berdasarkan abjad nama barang" << endl;
-    cout << "2. Berdasarkan harga paling mahal" << endl;
-    cout << "3. Berdasarkan harga paling murah" << endl;
-    cout << "Masukkan pilihan: ";
-    cin >> pilihan;
-    switch (pilihan) {
-        case 1:
-            cout << "-----------------------------------------" << endl;
-            cout << "                  ABJAD              " << endl;
-            cout << "-----------------------------------------" << endl;
-            sort(inventaris.begin(), inventaris.end(), [](const Produk& a, const Produk& b) {
-                return a.nama < b.nama;
-            });
-            break;
-        case 2:
-            cout << "-----------------------------------------" << endl;
-            cout << "               PALING MAHAL              " << endl;
-            cout << "-----------------------------------------" << endl;
-            sort(inventaris.begin(), inventaris.end(), [](const Produk& a, const Produk& b) {
-                return a.harga > b.harga;
-            });
-            break;
-        case 3:
-            cout << "-----------------------------------------" << endl;
-            cout << "               PALING MURAH           " << endl;
-            cout << "-----------------------------------------" << endl;
-            sort(inventaris.begin(), inventaris.end(), [](const Produk& a, const Produk& b) {
-                return a.harga < b.harga;
-            });
-            break;
-        default:
-            cout << "Pilihan tidak valid. Menampilkan produk berdasarkan abjad nama barang." << endl;
-            sort(inventaris.begin(), inventaris.end(), [](const Produk& a, const Produk& b) {
-                return a.nama < b.nama;
-            });
-    }
-    cout << "Daftar Produk:" << endl;
-    for (size_t i = 0; i < inventaris.size(); ++i) {
-        cout << "-----------------------------------------\n" << endl;
-        cout << i + 1 << ". Nama        : " << inventaris[i].nama << endl;
-        cout << "   Harga       : " << inventaris[i].harga << endl;
-        cout << "   Stok        : " << inventaris[i].stok << endl;
-        cout << "   Dekripsi    : " << inventaris[i].deskripsi << endl;
-    }
+    do {
+        cout << "Pilihan tampilan produk:" << endl;
+        cout << "1. Berdasarkan abjad nama barang" << endl;
+        cout << "2. Berdasarkan harga paling mahal" << endl;
+        cout << "3. Berdasarkan harga paling murah" << endl;
+        cout << "Masukkan pilihan: ";
+        cin >> pilihan;
+        switch (pilihan) {
+            case 1:
+                cout << "-----------------------------------------" << endl;
+                cout << "                  ABJAD              " << endl;
+                cout << "-----------------------------------------" << endl;
+                sort(inventaris.begin(), inventaris.end(), [](const Produk& a, const Produk& b) {
+                    return a.nama < b.nama;
+                });
+                break;
+            case 2:
+                cout << "-----------------------------------------" << endl;
+                cout << "               PALING MAHAL              " << endl;
+                cout << "-----------------------------------------" << endl;
+                sort(inventaris.begin(), inventaris.end(), [](const Produk& a, const Produk& b) {
+                    return a.harga > b.harga;
+                });
+                break;
+            case 3:
+                cout << "-----------------------------------------" << endl;
+                cout << "               PALING MURAH           " << endl;
+                cout << "-----------------------------------------" << endl;
+                sort(inventaris.begin(), inventaris.end(), [](const Produk& a, const Produk& b) {
+                    return a.harga < b.harga;
+                });
+                break;
+            default:
+                cout << "Pilihan tidak valid. Silakan coba lagi." << endl;
+        }
+        cout << "Daftar Produk:" << endl;
+        for (size_t i = 0; i < inventaris.size(); ++i) {
+            cout << "-----------------------------------------\n" << endl;
+            cout << i + 1 << ". Nama        : " << inventaris[i].nama << endl;
+            cout << "   Harga       : " << inventaris[i].harga << endl;
+            cout << "   Stok        : " << inventaris[i].stok << endl;
+            cout << "   Dekripsi    : " << inventaris[i].deskripsi << endl;
+        }
+        cout << "Apakah Anda ingin melihat produk lagi? (y/t): ";
+        cin >> pilihan;
+    } while (pilihan == 'y' || pilihan == 'Y');
 }
 
 void perbaruiProduk() {
