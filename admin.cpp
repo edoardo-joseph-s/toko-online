@@ -26,7 +26,6 @@ void simpanDataKeFile() {
         file << produk.nama << "," << produk.harga << "," << produk.stok << "," << produk.deskripsi << endl;
     }
     file.close();
-    cout << "Data berhasil disimpan ke file." << endl;
 }
 
 void bacaDataDariFile() {
@@ -75,13 +74,16 @@ void tambahProduk() {
     getline(cin, produkBaru.deskripsi); // Menggunakan getline untuk menerima input dengan spasi
     inventaris.push_back(produkBaru);
     simpanDataKeFile(); // Simpan data ke file setelah ditambahkan
+    cout << "-----------------------------------------" << endl;
     cout << "Produk berhasil ditambahkan!" << endl;
+    cout << "-----------------------------------------" << endl;
+
 }
 
 void bacaProduk() {
     system("cls");
     cout << "-----------------------------------------" << endl;
-    cout << "              TAMBAH PRODUK              " << endl;
+    cout << "              LIHAT PRODUK              " << endl;
     cout << "-----------------------------------------" << endl;
     if (inventaris.empty()) {
         cout << "Tidak ada produk dalam inventaris." << endl;
@@ -96,16 +98,25 @@ void bacaProduk() {
     cin >> pilihan;
     switch (pilihan) {
         case 1:
+            cout << "-----------------------------------------" << endl;
+            cout << "                  ABJAD              " << endl;
+            cout << "-----------------------------------------" << endl;
             sort(inventaris.begin(), inventaris.end(), [](const Produk& a, const Produk& b) {
                 return a.nama < b.nama;
             });
             break;
         case 2:
+            cout << "-----------------------------------------" << endl;
+            cout << "               PALING MAHAL              " << endl;
+            cout << "-----------------------------------------" << endl;
             sort(inventaris.begin(), inventaris.end(), [](const Produk& a, const Produk& b) {
                 return a.harga > b.harga;
             });
             break;
         case 3:
+            cout << "-----------------------------------------" << endl;
+            cout << "               PALING MURAH           " << endl;
+            cout << "-----------------------------------------" << endl;
             sort(inventaris.begin(), inventaris.end(), [](const Produk& a, const Produk& b) {
                 return a.harga < b.harga;
             });
@@ -189,10 +200,13 @@ void login() {
 
 int main() {
     int pilihan;
+    char chose;
 
     login();
 
-    system("cls");
+    do
+    {
+        system("cls");
     cout << "-----------------------------------------" << endl;
     cout << "                  M E N U                " << endl;
     cout << "-----------------------------------------" << endl;
@@ -222,5 +236,10 @@ int main() {
         default:
             cout << "Pilihan tidak valid. Silakan coba lagi." << endl;
     }
+
+        // Tanya apakah ingin kembali ke dashboard
+        cout << "\nKembali ke Menu? (y/n): ";
+        cin >> chose;
+    } while (chose == 'Y' || chose == 'y');
     return 0;
-}
+}   

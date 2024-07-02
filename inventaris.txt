@@ -1,1 +1,2 @@
-Buku Tulis,21000,10,Buku dengan kualitas terbaik di indonesia
+Helm,70000,20,Dengan standar SNI
+Ayam,10000,10,Enak
