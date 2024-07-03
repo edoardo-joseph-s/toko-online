@@ -227,40 +227,42 @@ int main() {
 
     login();
 
-    system("cls");
-    cout << "-----------------------------------------" << endl;
-    cout << "                  M E N U                " << endl;
-    cout << "-----------------------------------------" << endl;
-    cout << "1. Tambah Produk" << endl;
-    cout << "2. Lihat Produk" << endl;
-    cout << "3. Perbarui Produk" << endl;
-    cout << "4. Hapus Produk" << endl;
-    cout << "5. Keluar" << endl;
-    cout << "-----------------------------------------" << endl;
-    cout << "Masukkan pilihan: ";
-    cin >> pilihan;
-    switch (pilihan) {
-        case 1:
-            tambahProduk();
-            break;
-        case 2:
-            bacaProduk();
-            break;
-        case 3:
-            perbaruiProduk();
-            break;
-        case 4:
-            hapusProduk();
-            break;
-        case 5:
-            cout << "==============================================" << endl;
-            cout << "==============================================" << endl;
-            cout << "                   M E N U             " << endl;
-            cout << "                                               " << endl;
-            cout << "       Anda Telah Keluar Dari Aplikasi" << endl;
-            return 0; // Keluar dari program
-        default:
-            cout << "Pilihan tidak valid. Silakan coba lagi." << endl;
-    }
+    do {
+        system("cls");
+        cout << "-----------------------------------------" << endl;
+        cout << "                  M E N U                " << endl;
+        cout << "-----------------------------------------" << endl;
+        cout << "1. Tambah Produk" << endl;
+        cout << "2. Lihat Produk" << endl;
+        cout << "3. Perbarui Produk" << endl;
+        cout << "4. Hapus Produk" << endl;
+        cout << "5. Keluar" << endl;
+        cout << "-----------------------------------------" << endl;
+        cout << "Masukkan pilihan: ";
+        cin >> pilihan;
+        switch (pilihan) {
+            case 1:
+                tambahProduk();
+                break;
+            case 2:
+                bacaProduk();
+                break;
+            case 3:
+                perbaruiProduk();
+                break;
+            case 4:
+                hapusProduk();
+                break;
+            case 5:
+                cout << "==============================================" << endl;
+                cout << "==============================================" << endl;
+                cout << "                   M E N U             " << endl;
+                cout << "                                               " << endl;
+                cout << "       Anda Telah Keluar Dari Aplikasi" << endl;
+                return 0; // Keluar dari program
+            default:
+                cout << "Pilihan tidak valid. Silakan coba lagi." << endl;
+        }
+    } while (pilihan != 5);
     return 0;
 }   
