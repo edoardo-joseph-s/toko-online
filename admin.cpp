@@ -5,6 +5,9 @@
 #include <fstream> // Tambahkan untuk penggunaan file
 #include <sstream> // Tambahkan untuk penggunaan stringstream
 #include <conio.h> // Tambahkan untuk penggunaan _getch()
+#include <chrono> 
+#include <thread> 
+
 
 using namespace std;
 
@@ -140,6 +143,7 @@ void bacaProduk() {
         cout << "Apakah Anda ingin melihat produk lagi? (y/t): ";
         cin >> pilihan;
     } while (pilihan == 'y' || pilihan == 'Y');
+
 }
 
 void perbaruiProduk() {
@@ -213,12 +217,24 @@ void login() {
     }
     cout << endl; // Pindah baris setelah memasukkan password
 
-    // Proses autentikasi (anda bisa menambahkan logika autentikasi di sini)
-    if (username == "admin" && password == "ulan") {
-        cout << "Berhasil login" << endl;
-    } else {
-        cout << "\nUsername atau password salah" << endl;
-    } while (username!="admin"|| password!="ulan");
+    // Proses autentikasi dengan menggunakan do-while untuk mengulang jika password salah
+    do {
+        if (username == "admin" && password == "ulan") {
+            cout << "Berhasil login" << endl;
+            break; // Keluar dari loop jika autentikasi berhasil
+        } else {
+            cout << "\nUsername atau password salah. Silakan coba lagi." << endl;
+            password.clear(); // Bersihkan password untuk input baru
+            cout << "Masukan Password: ";
+            ch = _getch(); // Menggunakan _getch() agar input password tidak terlihat
+            while (ch != '\r') { // Loop sampai tombol Enter ditekan
+                password.push_back(ch); // Menambahkan karakter ke password
+                cout << '*'; // Menampilkan bintang sebagai input password
+                ch = _getch(); // Membaca karakter berikutnya
+            }
+            cout << endl; // Pindah baris setelah memasukkan password
+        }
+    } while (username != "admin" || password != "ulan");
 }
 
 int main() {

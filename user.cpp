@@ -2,9 +2,9 @@
 #include <vector>
 #include <string>
 #include <algorithm>
-#include <fstream> // Tambahkan untuk penggunaan file
-#include <sstream> // Tambahkan untuk penggunaan stringstream
-#include <conio.h> // Tambahkan untuk penggunaan _getch()
+#include <fstream>
+#include <sstream>
+#include <conio.h>
 
 using namespace std;
 
@@ -58,6 +58,8 @@ void bacaDataDariFile() {
 }
 
 void tampilkanProduk() {
+    system("cls");
+
     cout << "-----------------------------------------" << endl;
     cout << "                DAFTAR PRODUK            " << endl;
     cout << "-----------------------------------------" << endl;
@@ -73,15 +75,15 @@ void tampilkanProduk() {
 void tambahKeKeranjang() {
     string namaProduk;
     int jumlah;
-    
+
     system("cls");
     tampilkanProduk();
     cout << "-----------------------------------------" << endl;
     cout << "           TAMBAHKAN KE KERANJANG        " << endl;
     cout << "-----------------------------------------" << endl;
     cout << "Masukkan nama produk yang ingin ditambahkan: ";
-    cin.ignore(); // Tambahkan untuk mengabaikan enter sebelumnya
-    getline(cin, namaProduk); // Menggunakan getline untuk menerima input dengan spasi
+    cin.ignore();
+    getline(cin, namaProduk);
     cout << "Masukkan jumlah produk yang ingin ditambahkan: ";
     cin >> jumlah;
 
@@ -95,7 +97,7 @@ void tambahKeKeranjang() {
         item.jumlah = jumlah;
         keranjang.push_back(item);
         it->stok -= jumlah;
-        simpanDataKeFile(); // Simpan data ke file setelah stok diperbarui
+        simpanDataKeFile();
         cout << "Produk berhasil ditambahkan ke keranjang!" << endl;
     } else {
         cout << "Produk tidak ditemukan atau stok tidak mencukupi." << endl;
@@ -120,22 +122,21 @@ void lihatKeranjang() {
 
 void hapusDariKeranjang() {
     string namaProduk;
-    
+
     system("cls");
     lihatKeranjang();
     cout << "-----------------------------------------" << endl;
     cout << "         HAPUS PRODUK DARI KERANJANG     " << endl;
     cout << "-----------------------------------------" << endl;
     cout << "Masukkan nama produk yang ingin dihapus: ";
-    cin.ignore(); // Tambahkan untuk mengabaikan enter sebelumnya
-    getline(cin, namaProduk); // Menggunakan getline untuk menerima input dengan spasi
+    cin.ignore();
+    getline(cin, namaProduk);
 
     auto it = find_if(keranjang.begin(), keranjang.end(), [&](const KeranjangItem& item) {
         return item.namaProduk == namaProduk;
     });
 
     if (it != keranjang.end()) {
-        // Kembalikan stok produk ke inventaris
         auto produkIt = find_if(inventaris.begin(), inventaris.end(), [&](const Produk& produk) {
             return produk.nama == it->namaProduk;
         });
@@ -143,7 +144,7 @@ void hapusDariKeranjang() {
             produkIt->stok += it->jumlah;
         }
         keranjang.erase(it);
-        simpanDataKeFile(); // Simpan data ke file setelah stok diperbarui
+        simpanDataKeFile();
         cout << "Produk berhasil dihapus dari keranjang!" << endl;
     } else {
         cout << "Produk tidak ditemukan di keranjang." << endl;
@@ -170,13 +171,43 @@ void checkout() {
     }
     cout << "Total yang harus dibayar: Rp " << total << endl;
     cout << "Terima kasih telah berbelanja!" << endl;
-    keranjang.clear(); // Kosongkan keranjang setelah checkout
+    keranjang.clear();
 }
 
+void login();
+void regis();
+void reset();
+
 int main() {
-    int pilihan;
+    int c;
+    cout << "-----------------------------------------" << endl;
+    cout << "                 Dashboard               " << endl;
+    cout << "-----------------------------------------" << endl;
+    cout << "\t1. Sign In" << endl;
+    cout << "\t2. Sign Up" << endl;
+    cout << "\t3. Forgot Password" << endl;
+    cout << "\nMasukan Pilihan: ";
+    cin >> c;
+
+    switch (c) {
+        case 1:
+            login();
+            break;
+        case 2:
+            regis();
+            break;
+        case 3:
+            reset();
+            break;
+        default:
+            system("cls");
+            cout << "Masukkan pilihan yang benar..." << endl;
+            main();
+    }
+
     bacaDataDariFile();
 
+    int pilihan;
     do {
         system("cls");
         cout << "-----------------------------------------" << endl;
@@ -184,7 +215,7 @@ int main() {
         cout << "-----------------------------------------" << endl;
         cout << "1. Lihat Produk" << endl;
         cout << "2. Tambah ke Keranjang" << endl;
-        cout << "3. Lihat Keranjang" << endl;
+        cout << "3. Lihat Keranjang" << endl; 
         cout << "4. Hapus dari Keranjang" << endl;
         cout << "5. Checkout" << endl;
         cout << "6. Keluar" << endl;
@@ -208,13 +239,110 @@ int main() {
                 checkout();
                 break;
             case 6:
+            system("cls");
                 cout << "Terima kasih telah menggunakan aplikasi toko online!" << endl;
                 return 0;
             default:
                 cout << "Pilihan tidak valid. Silakan coba lagi." << endl;
         }
         cout << "Tekan tombol apa saja untuk melanjutkan...";
-        _getch(); // Menunggu pengguna menekan tombol apa saja
+        _getch();
     } while (pilihan != 6);
     return 0;
+}
+
+void login() {
+    int count;
+    string userId, password, id, pass;
+
+    system("cls");
+    cout << "-----------------------------------------" << endl;
+    cout << "                   Login                 " << endl;
+    cout << "-----------------------------------------\n" << endl;
+    cout << "Username\t: ";
+    cin >> userId;
+    cout << "Password\t: ";
+    cin >> password;
+
+    ifstream input("records.txt");
+
+    while (input >> id >> pass) {
+        if (id == userId && pass == password) {
+            count = 1;
+            system("cls");
+        }
+    }
+    input.close();
+
+    if (count == 1) {
+        cout << userId << " Login Berhasil" << endl;
+    } else {
+        cout << "Sign In dulu baru Login..." << endl;
+        main();
+    }
+}
+
+void regis() {
+    string ruserId, rpassword, rid, rpass;
+
+    system("cls");
+    cout << "-----------------------------------------" << endl;
+    cout << "                 Registrasi              " << endl;
+    cout << "-----------------------------------------" << endl;
+    cout << "Masukan Username: ";
+    cin >> ruserId;
+    cout << "Masukan Password: ";
+    cin >> rpassword;
+
+    ofstream f1("records.txt", ios::app);
+    f1 << ruserId << ' ' << rpassword << endl;
+    system("cls");
+    cout << "\nRegistrasi Berhasil..." << endl;
+    main();
+}
+
+void reset() {
+    int option;
+    system("cls");
+    cout << "-----------------------------------------" << endl;
+    cout << "           Lupa Password ?               " << endl;
+    cout << "-----------------------------------------\n" << endl;
+    cout << "1. Cari Akun Anda dari Username" << endl;
+    cout << "2. Kembali ke Main Menu" << endl;
+    cout << "Masukan Pilihan: ";
+    cin >> option;
+
+    switch (option) {
+        case 1: {
+            int count = 0;
+            string suserId, sId, spass;
+            cout << "\nMasukan Username yang diingat: ";
+            cin >> suserId;
+
+            ifstream f2("records.txt");
+            while (f2 >> sId >> spass) {
+                if (sId == suserId) {
+                    count = 1;
+                }
+            }
+            f2.close();
+
+            if (count == 1) {
+                cout << "\n\nAkun ditemukan...\n";
+                cout << "\nPassword anda adalah: " << spass << endl;
+                _getch();
+                main();
+            } else {
+                cout << "\n\nMaaf, akun tidak ditemukan...\n";
+                reset();
+            }
+            break;
+        }
+        case 2:
+            main();
+            break;
+        default:
+            cout << "\nMasukkan pilihan yang benar - coba lagi" << endl;
+            reset();
+    }
 }
