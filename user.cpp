@@ -59,14 +59,13 @@ void bacaDataDariFile() {
 
 void tampilkanProduk() {
     system("cls");
-
     cout << "-----------------------------------------" << endl;
     cout << "                DAFTAR PRODUK            " << endl;
     cout << "-----------------------------------------" << endl;
     for (size_t i = 0; i < inventaris.size(); ++i) {
         cout << i + 1 << ". Nama        : " << inventaris[i].nama << endl;
         cout << "   Harga       : " << inventaris[i].harga << endl;
-        cout << "   Stok        : " << inventaris[i].stok << endl;
+        cout << "   Stok        : " << inventaris[i].stok << ".000" << endl;
         cout << "   Deskripsi   : " << inventaris[i].deskripsi << endl;
         cout << "-----------------------------------------" << endl;
     }
@@ -107,7 +106,7 @@ void tambahKeKeranjang() {
 void lihatKeranjang() {
     system("cls");
     cout << "-----------------------------------------" << endl;
-    cout << "                KERANJANG ANDA           " << endl;
+    cout << "             KERANJANG ANDA           " << endl;
     cout << "-----------------------------------------" << endl;
     if (keranjang.empty()) {
         cout << "Keranjang Anda kosong." << endl;
@@ -115,7 +114,7 @@ void lihatKeranjang() {
     }
     for (size_t i = 0; i < keranjang.size(); ++i) {
         cout << i + 1 << ". Nama Produk  : " << keranjang[i].namaProduk << endl;
-        cout << "   Jumlah      : " << keranjang[i].jumlah << endl;
+        cout << "   Jumlah       : " << keranjang[i].jumlah << endl;
         cout << "-----------------------------------------" << endl;
     }
 }
@@ -161,14 +160,21 @@ void checkout() {
         return;
     }
     int total = 0;
+    cout << "Daftar Belanja Anda:" << endl;
     for (const auto& item : keranjang) {
         auto produkIt = find_if(inventaris.begin(), inventaris.end(), [&](const Produk& produk) {
             return produk.nama == item.namaProduk;
         });
         if (produkIt != inventaris.end()) {
+            cout << "Nama Produk  : " << produkIt->nama << endl;
+            cout << "Jumlah       : " << item.jumlah << endl;
+            cout << "Harga        : Rp " << produkIt->harga << endl;
+            cout << "Subtotal     : Rp " << item.jumlah * produkIt->harga << endl;
+            cout << "-----------------------------------------" << endl;
             total += item.jumlah * produkIt->harga;
         }
     }
+    cout << "\n-----------------------------------------" << endl;
     cout << "Total yang harus dibayar: Rp " << total << endl;
     cout << "Terima kasih telah berbelanja!" << endl;
     keranjang.clear();
@@ -181,12 +187,13 @@ void reset();
 int main() {
     int c;
     cout << "-----------------------------------------" << endl;
-    cout << "                 Dashboard               " << endl;
+    cout << "             Masuk dulu skuyyy               " << endl;
     cout << "-----------------------------------------" << endl;
     cout << "\t1. Sign In" << endl;
     cout << "\t2. Sign Up" << endl;
     cout << "\t3. Forgot Password" << endl;
-    cout << "\nMasukan Pilihan: ";
+    cout << "\n-----------------------------------------" << endl;
+    cout << "Masukan Pilihan: ";
     cin >> c;
 
     switch (c) {
@@ -208,8 +215,8 @@ int main() {
     bacaDataDariFile();
 
     int pilihan;
+    system("cls");
     do {
-        system("cls");
         cout << "-----------------------------------------" << endl;
         cout << "              TOKO ONLINE                " << endl;
         cout << "-----------------------------------------" << endl;
@@ -245,7 +252,7 @@ int main() {
             default:
                 cout << "Pilihan tidak valid. Silakan coba lagi." << endl;
         }
-        cout << "Tekan tombol apa saja untuk melanjutkan...";
+        cout << "Tekan enter untuk melanjutkan...";
         _getch();
     } while (pilihan != 6);
     return 0;
