@@ -1,2 +1,0 @@
-Sapi,10,100,ads
-Ayam,10,990,afaf

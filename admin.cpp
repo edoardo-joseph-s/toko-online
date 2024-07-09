@@ -11,6 +11,7 @@
 
 using namespace std;
 
+// Struktur untuk mewakili produk
 struct Produk {
     string nama;
     int harga;
@@ -23,6 +24,7 @@ char ch;
 
 vector<Produk> inventaris;
 
+// Fungsi untuk menyimpan data ke file
 void simpanDataKeFile() {
     ofstream file("inventaris.txt");
     for (const auto& produk : inventaris) {
@@ -31,6 +33,7 @@ void simpanDataKeFile() {
     file.close();
 }
 
+// Fungsi untuk membaca data dari file
 void bacaDataDariFile() {
     ifstream file("inventaris.txt");
     string line;
@@ -58,6 +61,7 @@ void bacaDataDariFile() {
     cout << "Data berhasil dibaca dari file." << endl;
 }
 
+// Fungsi untuk menambah produk baru
 void tambahProduk() {
     Produk produkBaru;
     char pilihan;
@@ -87,6 +91,7 @@ void tambahProduk() {
     } while (pilihan == 'y' || pilihan == 'Y');
 }
 
+// Fungsi untuk menampilkan produk
 void bacaProduk() {
     system("cls");
     cout << "-----------------------------------------" << endl;
@@ -138,6 +143,7 @@ void bacaProduk() {
     }
 }
 
+// Fungsi untuk memperbarui produk
 void perbaruiProduk() {
     string namaProduk;
 
@@ -167,6 +173,7 @@ void perbaruiProduk() {
     cout << "Produk tidak ditemukan." << endl;
 }
 
+// Fungsi untuk menghapus produk
 void hapusProduk() {
     string namaProduk;
 
@@ -191,6 +198,7 @@ void hapusProduk() {
     }
 }
 
+// Fungsi untuk proses login
 void login() {
     system("cls");
     cout << "==============================================" << endl;
@@ -237,7 +245,7 @@ int main() {
 
     do {
         system("cls");
-        cout << "-----------------------------------------" << endl;
+        cout << "\n-----------------------------------------" << endl;
         cout << "                  M E N U                " << endl;
         cout << "-----------------------------------------" << endl;
         cout << "1. Tambah Produk" << endl;
