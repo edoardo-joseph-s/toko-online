@@ -259,8 +259,9 @@ int main() {
 }
 
 void login() {
-    int count;
+    int count = 0;
     string userId, password, id, pass;
+    char ch;
 
     system("cls");
     cout << "-----------------------------------------" << endl;
@@ -269,7 +270,14 @@ void login() {
     cout << "Username\t: ";
     cin >> userId;
     cout << "Password\t: ";
-    cin >> password;
+    password.clear();
+    ch = _getch(); // Menggunakan _getch() agar input password tidak terlihat
+    while (ch != '\r') { // Loop sampai tombol Enter ditekan
+        password.push_back(ch); // Menambahkan karakter ke password
+        cout << '*'; // Menampilkan bintang sebagai input password
+        ch = _getch(); // Membaca karakter berikutnya
+    }
+    cout << endl; // Pindah baris setelah memasukkan password
 
     ifstream input("records.txt");
 
@@ -277,14 +285,14 @@ void login() {
         if (id == userId && pass == password) {
             count = 1;
             system("cls");
+            cout << userId << " Login Berhasil" << endl;
+            break; // Keluar dari loop jika username dan password cocok
         }
     }
     input.close();
 
-    if (count == 1) {
-        cout << userId << " Login Berhasil" << endl;
-    } else {
-        cout << "Sign In dulu baru Login..." << endl;
+    if (count == 0) {
+        cout << "Username atau Password salah. Silakan coba lagi." << endl;
         main();
     }
 }
