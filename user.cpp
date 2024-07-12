@@ -1,9 +1,4 @@
-#include <iostream>
-#include <vector>
-#include <string>
-#include <algorithm>
-#include <fstream>
-#include <sstream>
+#include<bits/stdc++.h>
 #include <conio.h>
 
 using namespace std;
@@ -64,8 +59,8 @@ void tampilkanProduk() {
     cout << "-----------------------------------------" << endl;
     for (size_t i = 0; i < inventaris.size(); ++i) {
         cout << i + 1 << ". Nama        : " << inventaris[i].nama << endl;
-        cout << "   Harga       : " << inventaris[i].harga << endl;
-        cout << "   Stok        : " << inventaris[i].stok << ".000" << endl;
+        cout << "   Harga       : Rp. " << inventaris[i].harga << ".000"  << endl;
+        cout << "   Stok        : " << inventaris[i].stok << endl;
         cout << "   Deskripsi   : " << inventaris[i].deskripsi << endl;
         cout << "-----------------------------------------" << endl;
     }
@@ -199,6 +194,7 @@ int main() {
     switch (c) {
         case 1:
             login();
+            getch();
             break;
         case 2:
             regis();
@@ -293,6 +289,7 @@ void login() {
 
     if (count == 0) {
         cout << "Username atau Password salah. Silakan coba lagi." << endl;
+        getch();
         main();
     }
 }
