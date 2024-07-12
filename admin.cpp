@@ -271,11 +271,12 @@ int main() {
                 hapusProduk();
                 break;
             case 5:
+            system("cls");
                 cout << "==============================================" << endl;
+                cout << "                    E X I T                   " << endl;
                 cout << "==============================================" << endl;
-                cout << "                   M E N U             " << endl;
+                cout << "         Anda Telah Keluar Dari Aplikasi        " << endl;
                 cout << "                                               " << endl;
-                cout << "       Anda Telah Keluar Dari Aplikasi" << endl;
                 return 0; // Keluar dari program
             default:
                 cout << "Pilihan tidak valid. Silakan coba lagi." << endl;
