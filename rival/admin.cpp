@@ -14,7 +14,7 @@ struct Menu {
     string nama;
     int harga;
     int stok;
-    string deskripsi;
+    string kategori; // Mengganti deskripsi menjadi kategori
 };
 
 string username, password;
@@ -23,15 +23,15 @@ char ch;
 vector<Menu> inventaris;
 
 void simpanDataKeFile() {
-    ofstream file("inventaris.txt");
+    ofstream file("menu_restoran.txt"); // Mengubah nama file menjadi "menu_restoran.txt" untuk konsistensi dengan user.cpp
     for (const auto& menu : inventaris) {
-        file << menu.nama << "," << menu.harga << "," << menu.stok << "," << menu.deskripsi << endl;
+        file << menu.nama << "," << menu.harga << "," << menu.stok << "," << menu.kategori << endl; // Mengganti deskripsi menjadi kategori
     }
     file.close();
 }
 
 void bacaDataDariFile() {
-    ifstream file("inventaris.txt");
+    ifstream file("menu_restoran.txt"); // Mengubah nama file menjadi "menu_restoran.txt" untuk konsistensi dengan user.cpp
     string line;
     while (getline(file, line)) {
         size_t pos = 0;
@@ -49,7 +49,7 @@ void bacaDataDariFile() {
             menu.nama = tokens[0];
             menu.harga = stoi(tokens[1]);
             menu.stok = stoi(tokens[2]);
-            menu.deskripsi = tokens[3];
+            menu.kategori = tokens[3]; // Mengganti deskripsi menjadi kategori
             inventaris.push_back(menu);
         }
     }
@@ -57,12 +57,13 @@ void bacaDataDariFile() {
     cout << "Data berhasil dibaca dari file." << endl;
 }
 
+// fungsi untuk menambahkan menu baru
 void tambahMenu() {
     Menu menuBaru;
     char pilihan;
     
     do {
-        system("cls");
+        system("cls"); // clear screan
         cout << "=========================================" << endl;
         cout << "              TAMBAH MENU              " << endl;
         cout << "=========================================" << endl;
@@ -73,9 +74,9 @@ void tambahMenu() {
         cin >> menuBaru.harga;
         cout << "Masukkan stok menu       : ";
         cin >> menuBaru.stok;
-        cout << "Masukkan deskripsi menu  : ";
+        cout << "Masukkan kategori menu   : "; // Mengganti deskripsi menjadi kategori
         cin.ignore(); 
-        getline(cin, menuBaru.deskripsi); 
+        getline(cin, menuBaru.kategori); // Mengganti deskripsi menjadi kategori
         inventaris.push_back(menuBaru);
         simpanDataKeFile(); 
         cout << "=========================================" << endl;
@@ -86,6 +87,7 @@ void tambahMenu() {
     } while (pilihan == 'y' || pilihan == 'Y');
 }
 
+// fungsi untuk melihat menu yang di add
 void bacaMenu() {
     system("cls");
     cout << "=========================================" << endl;
@@ -98,45 +100,44 @@ void bacaMenu() {
     
     int pilihan;
     cout << "Pilihan tampilan menu:" << endl;
-    cout << "1. Berdasarkan abjad nama menu" << endl;
-    cout << "2. Berdasarkan harga paling mahal" << endl;
-    cout << "3. Berdasarkan harga paling murah" << endl;
+    cout << "1. Makanan" << endl;
+    cout << "2. Minuman" << endl;
     cout << "Masukkan pilihan: ";
     cin >> pilihan;
     if (pilihan == 1) {
+        // menampilkan menu makanan
         cout << "=========================================" << endl;
-        cout << "                  ABJAD              " << endl;
+        cout << "                               MAKANAN              " << endl;
         cout << "=========================================" << endl;
-        sort(inventaris.begin(), inventaris.end(), [](const Menu& a, const Menu& b) {
-            return a.nama < b.nama;
-        });
+        for (const auto& menu : inventaris) {
+            if (menu.kategori == "Makanan") {
+                cout << "=========================================\n" << endl;
+                cout << "Nama        : " << menu.nama << endl;
+                cout << "Harga       : " << menu.harga << endl;
+                cout << "Stok        : " << menu.stok << endl;
+                cout << "Kategori    : " << menu.kategori << endl;
+            }
+        }
     } else if (pilihan == 2) {
+        // menampilkan menu minuman
         cout << "=========================================" << endl;
-        cout << "               PALING MAHAL              " << endl;
+        cout << "                MINUMAN              " << endl;
         cout << "=========================================" << endl;
-        sort(inventaris.begin(), inventaris.end(), [](const Menu& a, const Menu& b) {
-            return a.harga > b.harga;
-        });
-    } else if (pilihan == 3) {
-        cout << "=========================================" << endl;
-        cout << "               PALING MURAH           " << endl;
-        cout << "=========================================" << endl;
-        sort(inventaris.begin(), inventaris.end(), [](const Menu& a, const Menu& b) {
-            return a.harga < b.harga;
-        });
+        for (const auto& menu : inventaris) {
+            if (menu.kategori == "Minuman") {
+                cout << "=========================================\n" << endl;
+                cout << "Nama        : " << menu.nama << endl;
+                cout << "Harga       : " << menu.harga << endl;
+                cout << "Stok        : " << menu.stok << endl;
+                cout << "Kategori    : " << menu.kategori << endl;
+            }
+        }
     } else {
         cout << "Pilihan tidak valid. Silakan coba lagi." << endl;
     }
-    cout << "Daftar Menu:" << endl;
-    for (size_t i = 0; i < inventaris.size(); ++i) {
-        cout << "=========================================\n" << endl;
-        cout << i + 1 << ". Nama        : " << inventaris[i].nama << endl;
-        cout << "   Harga       : " << inventaris[i].harga << endl;
-        cout << "   Stok        : " << inventaris[i].stok << endl;
-        cout << "   Dekripsi    : " << inventaris[i].deskripsi << endl;
-    }
 }
 
+// update menu
 void perbaruiMenu() {
     string namaMenu;
 
@@ -153,9 +154,9 @@ void perbaruiMenu() {
             cin >> menu.harga;
             cout << "Masukkan stok baru         : ";
             cin >> menu.stok;
-            cout << "Masukkan deskripsi baru    : ";
+            cout << "Masukkan kategori baru     : "; // Mengganti deskripsi menjadi kategori
             cin.ignore(); 
-            getline(cin, menu.deskripsi); 
+            getline(cin, menu.kategori); // Mengganti deskripsi menjadi kategori
             simpanDataKeFile(); 
             cout << "=========================================" << endl;
             cout << "Menu berhasil diperbarui!" << endl;
@@ -166,6 +167,7 @@ void perbaruiMenu() {
     cout << "Menu tidak ditemukan." << endl;
 }
 
+// fungsi untuk menghapus menu yang telah di tambah
 void hapusMenu() {
     string namaMenu;
 
@@ -190,10 +192,11 @@ void hapusMenu() {
     }
 }
 
+// fungsi untuk masuk aplikasi
 void login() {
     system("cls");
     cout << "==============================================" << endl;
-    cout << "           L O G I N  A P L I K A S I        " << endl;
+    cout << "                MASUK APLIKASI      " << endl;
     cout << "==============================================" << endl;
     cout << "Masukan Username: ";
     cin >> username;
@@ -207,7 +210,7 @@ void login() {
     cout << endl; 
 
     do {
-        if (username == "admin" && password == "admin") {
+        if (username == "gajah" && password == "rival") {
             cout << "Berhasil login" << endl;
             break; 
         } else {
@@ -222,8 +225,9 @@ void login() {
             }
             cout << endl; 
         }
-    } while (username != "admin" || password != "admin");
+    } while (username != "gajah" || password != "rival");
 }
+
 
 int main() {
     int pilihan;
