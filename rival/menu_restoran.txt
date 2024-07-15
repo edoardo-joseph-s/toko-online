@@ -1,3 +1,0 @@
-ayam penyet,4000,3,makanan
-jus,5000,2,minuman
-ketoprak,7000,2,makanan
